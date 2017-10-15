@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug64</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6FAE3694-D085-40FC-B4C1-9CBCEA0A2A9D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>My_Rhino5_rs11_project_8</RootNamespace>
+    <AssemblyName>My_Rhino5_rs11_project_8</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Rhino_DotNet">
+      <HintPath>C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino_DotNet.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RhinoCommon">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Delete_multi_pins.cs" />
+    <Compile Include="Delete_object.cs" />
+    <Compile Include="DijkstraGraph.cs" />
+    <Compile Include="Draw_edge.cs" />
+    <Compile Include="Get_mesh.cs" />
+    <Compile Include="Get_object_name.cs" />
+    <Compile Include="Get_path_number.cs" />
+    <Compile Include="Import_my_object.cs" />
+    <Compile Include="Import_blue_object.cs" />
+    <Compile Include="Import_purple_object.cs" />
+    <Compile Include="Import_red_object.cs" />
+    <Compile Include="Link_multi_pins.cs" />
+    <Compile Include="Link_pins.cs" />
+    <Compile Include="Motion_message.cs" />
+    <Compile Include="Move_object.cs" />
+    <Compile Include="Move_multi_pins.cs" />
+    <Compile Include="MyObject.cs" />
+    <Compile Include="MyRhino5rs11project8Command.cs" />
+    <Compile Include="MyRhino5rs11project8PlugIn.cs" />
+    <Compile Include="My_object_functions.cs" />
+    <Compile Include="My_Rhino_SerialPort.cs" />
+    <Compile Include="My_Rhino_Usercontrol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="My_Rhino_Usercontrol.Designer.cs">
+      <DependentUpon>My_Rhino_Usercontrol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectName.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rotate_multi_pins.cs" />
+    <Compile Include="SerialPort_UserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SerialPort_UserControl.Designer.cs">
+      <DependentUpon>SerialPort_UserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SparseMatrix.cs" />
+    <Compile Include="Test_command.cs" />
+    <Compile Include="Turn_table.cs" />
+    <Compile Include="unroller_example.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My_Rhino_Usercontrol.resx">
+      <DependentUpon>My_Rhino_Usercontrol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SerialPort_UserControl.resx">
+      <DependentUpon>SerialPort_UserControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).rhp"
+Erase "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FallbackCulture>en-US</FallbackCulture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
+    <StartProgram>C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
+    <StartArguments>
+    </StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+</Project>
