@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -988,6 +988,100 @@ namespace My_Rhino5_rs11_project_8
              return d_path_list;
         }
         
+        public List<NurbsCurve> DijkstraPath_DeletePath(Guid path_id)
+        {
+            
+            List<NurbsCurve> d_path_list = new List<NurbsCurve>();
+            if (dijkstrapath_list.Count == 0) { return d_path_list; }
+            DijkstraPathVertex d_ver_1, d_ver_2;
+            bool find_path = false;
+            for(int i = 0; i < dijkstrapath_list.Count; i++)
+            {
+                d_ver_1 = dijkstrapath_list[i].d_ver_1;
+                d_ver_2 = dijkstrapath_list[i].d_ver_2;
+                if (dijkstrapath_list[i].path_id == path_id)
+                {
+                    find_path = true;
+                    dijkstrapath_list[i].is_being_changed = true;
+                    for (int j = d_ver_1.d_edge_list.Count - 1; j >= 0; j--)
+                    {
+                        if (d_ver_1.d_edge_list[j].is_being_changed)
+                        {
+                            d_ver_1.d_edge_list.RemoveAt(j);
+                            break;
+                        }
+                    }
+                    for (int j = 0; j < d_ver_1.neighboor_list.Count; j++)
+                    {
+                        if (d_ver_1.neighboor_list[j] == d_ver_2)
+                        {
+                            d_ver_1.neighboor_list.RemoveAt(j);
+                        }
+                    }
+                    for (int j = d_ver_2.d_edge_list.Count - 1; j >= 0; j--)
+                    {
+                        if (d_ver_2.d_edge_list[j].is_being_changed)
+                        {
+                            d_ver_2.d_edge_list.RemoveAt(j);
+                            break;
+                        }
+                    }
+                    for (int j = 0; j < d_ver_2.neighboor_list.Count; j++)
+                    {
+                        if (d_ver_2.neighboor_list[j] == d_ver_1)
+                        {
+                            d_ver_2.neighboor_list.RemoveAt(j);
+                        }
+                    }
+                    break;
+                }
+                
+            }
+
+            if(!find_path)
+            {
+                Rhino.RhinoApp.WriteLine("didn't find path");
+                for(int i = 0; i < dijkstrapath_list.Count; i++)
+                {
+                    d_path_list.Add(dijkstrapath_list[i].path);
+                }
+                return d_path_list;
+            }
+
+            for (int i = 0; i < face_count; i++) { weight_list[i] = 1; }
+
+            for (int i = 0; i < dijkstrapath_list.Count; i++)
+            {
+                if (dijkstrapath_list[i].is_being_changed == false)
+                {
+                    d_path_list.Add(dijkstrapath_list[i].path);
+                    List<int> weight_changed_faces = dijkstrapath_list[i].weight_changed_faces;
+                    List<int> weight_changed_faces_on_terminal = dijkstrapath_list[i].weight_changed_faces_on_terminal;
+                    for (int j = 0; j < weight_changed_faces.Count; j++)
+                    {
+                        weight_list[weight_changed_faces[j]] = weight_on_path;
+                    }
+                    for (int j = 0; j < weight_changed_faces_on_terminal.Count; j++)
+                    {
+                        weight_list[weight_changed_faces_on_terminal[j]] = weight_on_end;
+                    }
+                }
+            }
+
+            
+
+            for (int i = dijkstrapath_list.Count - 1; i >= 0; i--)
+            {
+                if (dijkstrapath_list[i].is_being_changed)
+                {
+                    dijkstrapath_list[i] = null;
+                    dijkstrapath_list.RemoveAt(i);
+                }
+            }
+            return d_path_list;
+
+        }
+
         public List<NurbsCurve> DijkstraPath_DeletePin(Guid pin_id)
         {
             for (int i = 0; i < face_count; i++) { weight_list[i] = 1; }
