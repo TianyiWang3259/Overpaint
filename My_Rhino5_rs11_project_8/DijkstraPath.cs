@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -29,6 +29,13 @@ namespace My_Rhino5_rs11_project_8
         public DijkstraPathVertex d_ver_1;
         public DijkstraPathVertex d_ver_2;
         public bool is_being_changed;
+
+        //for path adjustment
+        public bool has_been_adjusted;
+        public List<NurbsCurve> adjusted_path_list;
+
+        //get coordinations of points on nurbscurve
+
         public DijkstraPath()
         {
             //ver_1_num = -1;
@@ -107,6 +114,18 @@ namespace My_Rhino5_rs11_project_8
                 return path_id;
             }
             else { return Guid.Empty; }
+        }
+
+
+        public List<NurbsCurve> GetPrintPath()
+        {
+            if(has_been_adjusted)
+            { return adjusted_path_list; }
+            else
+            {
+                adjusted_path_list.Add(path);
+                return adjusted_path_list;
+            }
         }
 
     }
